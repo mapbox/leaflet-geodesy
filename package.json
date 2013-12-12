@@ -19,6 +19,6 @@
     "geojson-area": "0.0.1"
   },
   "devDependencies": {
-    "watchify": "~0.4.1",
+    "watchify": "~0.4.1"
   }
 }
