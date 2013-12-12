@@ -2,16 +2,39 @@
 var spherical = require('spherical');
 
 module.exports.circle = function(center, radius, opt) {
-    center.reverse();
+    center = L.latLng(center);
     opt = opt || {};
     var parts = opt.parts || 20;
 
-    var lls = [];
-    for (var i = 0; i < parts + 1; i++) {
-        lls.push(spherical.radial(center, (i / parts) * 360, radius).reverse());
+    function generate(center) {
+        var lls = [];
+        for (var i = 0; i < parts + 1; i++) {
+            lls.push(spherical.radial(
+                [center.lng, center.lat],
+                (i / parts) * 360, radius).reverse());
+        }
+        return lls;
     }
 
-    return L.polygon(lls, opt);
+    var poly = L.polygon(generate(center), opt);
+
+    poly.setLatLng = function(_) {
+        center = _;
+        poly.setLatLngs(generate(center));
+        return poly;
+    };
+
+    poly.getRadius = function(_) {
+        return radius;
+    };
+
+    poly.setRadius = function(_) {
+        radius = _;
+        poly.setLatLngs(generate(center));
+        return poly;
+    };
+
+    return poly;
 };
 
 },{"spherical":2}],2:[function(require,module,exports){
@@ -79,31 +102,21 @@ var desy = require('./');
 var map = L.mapbox.map('map', 'examples.map-9ijuk24y')
   .setView([0, 0], 2);
 
-for (var i = -9; i < 10; i++) {
-    L.circle([-i * 8, 0], 2000000, {
-        fillOpacity: 0,
-        color: '#00f'
-    }).addTo(map);
+var planarCircle = L.circle([0, 0], 2000000, {
+    fillOpacity: 0,
+    color: '#00f'
+}).addTo(map);
 
-    desy.circle([-i * 8, 0], 2000000, {
-        parts: 60,
-        color: '#f00',
-        fillOpacity: 0
-    }).addTo(map);
-}
+var desyCircle = desy.circle([0, 0], 2000000, {
+    parts: 60,
+    color: '#f00',
+    fillOpacity: 0
+}).addTo(map);
 
-for (var i = -9; i < 10; i++) {
-    L.circle([0, -i * 8], 2000000, {
-        fillOpacity: 0,
-        color: '#00f'
-    }).addTo(map);
-
-    desy.circle([0, -i * 8], 2000000, {
-        parts: 60,
-        color: '#f00',
-        fillOpacity: 0
-    }).addTo(map);
-}
+map.on('mousemove', function(e) {
+    desyCircle.setLatLng(e.latlng);
+    planarCircle.setLatLng(e.latlng);
+});
 
 },{"./":1}]},{},[4])
 ;
