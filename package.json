@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "watchify site.js -o bundle.js"
+    "build": "watchify site.js -o bundle.js",
+    "make": "browserify index.js -o leaflet-geodesy.js"
   },
   "keywords": [
     "leaflet",
@@ -19,6 +20,7 @@
     "geojson-area": "0.0.1"
   },
   "devDependencies": {
-    "watchify": "~0.4.1"
+    "watchify": "~0.4.1",
+    "browserify": "~3.1.3"
   }
 }
