@@ -1,4 +1,5 @@
-var spherical = require('spherical');
+var spherical = require('spherical'),
+    geojsonArea = require('geojson-area');
 
 module.exports.circle = function(center, radius, opt) {
     center = L.latLng(center);
@@ -34,4 +35,9 @@ module.exports.circle = function(center, radius, opt) {
     };
 
     return poly;
+};
+
+module.exports.area = function(layer) {
+    var gj = layer.toGeoJSON();
+    return geojsonArea(gj.geometry);
 };

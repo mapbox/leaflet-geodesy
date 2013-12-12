@@ -18,3 +18,15 @@ map.on('mousemove', function(e) {
     desyCircle.setLatLng(e.latlng);
     planarCircle.setLatLng(e.latlng);
 });
+
+function load() {
+    var states = L.geoJson(JSON.parse(this.responseText)).addTo(map);
+    states.eachLayer(function(s) {
+        s.bindPopup('area: ' + desy.area(s) + 'km<sup>2</sup>');
+    });
+}
+
+var r = new XMLHttpRequest();
+r.onload = load;
+r.open("get", "data/states.geojson", true);
+r.send();

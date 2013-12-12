@@ -19,6 +19,10 @@ The generated layer supports:
 * `getRadius()`: get radius
 * `toGeoJSON()`: get GeoJSON representation
 
+`geodesy.area(layer)`
+
+Given a `L.Polygon` layer, return the physical area contained within.
+
 ---
 
 * [spherical](http://github.com/mapbox/spherical) does the work behind the scenes
