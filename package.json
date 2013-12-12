@@ -1,0 +1,21 @@
+{
+  "name": "leaflet-geodesy",
+  "version": "0.0.0",
+  "description": "geodesy functionality for leaflet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "watchify site.js -o bundle.js"
+  },
+  "keywords": [
+    "leaflet",
+    "geodesy",
+    "sphere",
+    "spherical"
+  ],
+  "author": "Tom MacWright",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "watchify": "~0.4.1"
+  }
+}
