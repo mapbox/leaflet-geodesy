@@ -2,7 +2,20 @@
 
 A [Leaflet](http://leafletjs.com/) plugin for the earth.
 
+## install
+
+With browserify
+
+    npm install --save leaflet-geodesy
+
+Otherwise
+
+    https://raw.github.com/mapbox/leaflet-geodesy/gh-pages/leaflet-geodesy.js
+
 ## api
+
+Either via `require('leaflet-geodesy')` or the `LGeo` object when used without
+browserify.
 
 `geodesy.circle(center, radius, opt)`
 
