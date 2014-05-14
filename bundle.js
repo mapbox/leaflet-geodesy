@@ -169,7 +169,7 @@ module.exports=require(3)
 },{}],6:[function(require,module,exports){
 var desy = require('./');
 
-var map = L.mapbox.map('map', 'examples.map-9ijuk24y')
+var map = L.mapbox.map('map', 'examples.map-i86knfo3')
   .setView([0, 0], 2);
 
 var planarCircle = L.circle([0, 0], 2000000, {
