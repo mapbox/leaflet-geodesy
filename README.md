@@ -8,6 +8,8 @@ With browserify
 
     npm install --save leaflet-geodesy
 
+Via the Mapbox.js Plugin CDN: https://www.mapbox.com/mapbox.js/plugins/#leaflet-geodesy
+
 Otherwise
 
     https://raw.github.com/mapbox/leaflet-geodesy/gh-pages/leaflet-geodesy.js
