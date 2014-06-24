@@ -17,7 +17,8 @@
   "author": "Tom MacWright",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "geojson-area": "0.0.1"
+    "geojson-area": "0.0.1",
+    "spherical": "0.0.1"
   },
   "devDependencies": {
     "watchify": "~0.4.1",
