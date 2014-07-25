@@ -1,6 +1,7 @@
-;(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var spherical = require('spherical'),
-    geojsonArea = require('geojson-area');
+    geojsonArea = require('geojson-area'),
+    wgs84 = require('wgs84');
 
 module.exports.circle = function(center, radius, opt) {
     center = L.latLng(center);
@@ -14,6 +15,24 @@ module.exports.circle = function(center, radius, opt) {
                 [center.lng, center.lat],
                 (i / parts) * 360, radius).reverse());
         }
+
+        var angularRadius = radius / wgs84.RADIUS * 180 / Math.PI;
+
+        if ( angularRadius > (90 - center.lat) ) {
+            lls.push([ lls[0][0], center.lng+180 ],
+                [ 90, center.lng+180 ],
+                [ 90, center.lng-180 ],
+                [ lls[0][0], center.lng-180 ]);
+        }
+
+        if ( angularRadius > (90 + center.lat) ) {
+            lls.splice( (parts>>1)+1, 0,
+                [ lls[ (parts>>1) ][0], center.lng-180 ],
+                [ -90, center.lng-180 ],
+                [ -90, center.lng+180 ],
+                [ lls[ (parts>>1) ][0], center.lng+180 ] );
+        }
+
         return lls;
     }
 
@@ -43,7 +62,7 @@ module.exports.area = function(layer) {
     return geojsonArea(gj.geometry);
 };
 
-},{"geojson-area":2,"spherical":4}],2:[function(require,module,exports){
+},{"geojson-area":2,"spherical":4,"wgs84":6}],2:[function(require,module,exports){
 var wgs84 = require('wgs84');
 
 module.exports = function(_) {
@@ -172,6 +191,8 @@ function deg(_) {
 },{"wgs84":5}],5:[function(require,module,exports){
 module.exports=require(3)
 },{}],6:[function(require,module,exports){
+module.exports=require(3)
+},{}],7:[function(require,module,exports){
 var desy = require('./');
 
 var map = L.mapbox.map('map', 'examples.map-i86knfo3')
@@ -205,5 +226,4 @@ r.onload = load;
 r.open("get", "data/states.geojson", true);
 r.send();
 
-},{"./":1}]},{},[6])
-;
+},{"./":1}]},{},[7])

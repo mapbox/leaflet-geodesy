@@ -18,7 +18,8 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "geojson-area": "0.0.1",
-    "spherical": "0.1.0"
+    "spherical": "0.1.0",
+    "wgs84": "0.0.0"
   },
   "devDependencies": {
     "watchify": "~0.4.1",
