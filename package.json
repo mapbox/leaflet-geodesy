@@ -1,6 +1,6 @@
 {
   "name": "leaflet-geodesy",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "geodesy functionality for leaflet",
   "main": "index.js",
   "scripts": {
