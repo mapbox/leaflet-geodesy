@@ -1,7 +1,7 @@
-!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.LGeo=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
-var spherical = _dereq_('spherical'),
-    geojsonArea = _dereq_('geojson-area'),
-    wgs84 = _dereq_('wgs84');
+!function(e){"object"==typeof exports?module.exports=e():"function"==typeof define&&define.amd?define(e):"undefined"!=typeof window?window.LGeo=e():"undefined"!=typeof global?global.LGeo=e():"undefined"!=typeof self&&(self.LGeo=e())}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var spherical = require('spherical'),
+    geojsonArea = require('geojson-area'),
+    wgs84 = require('wgs84');
 
 module.exports.circle = function(center, radius, opt) {
     center = L.latLng(center);
@@ -10,27 +10,27 @@ module.exports.circle = function(center, radius, opt) {
 
     function generate(center) {
         var lls = [];
+        var angularRadius = radius / wgs84.RADIUS * 180 / Math.PI;
+
         for (var i = 0; i < parts + 1; i++) {
             lls.push(spherical.radial(
                 [center.lng, center.lat],
                 (i / parts) * 360, radius).reverse());
         }
 
-        var angularRadius = radius / wgs84.RADIUS * 180 / Math.PI;
-
-        if ( angularRadius > (90 - center.lat) ) {
-            lls.push([ lls[0][0], center.lng+180 ],
-                [ 90, center.lng+180 ],
-                [ 90, center.lng-180 ],
-                [ lls[0][0], center.lng-180 ]);
+        if (angularRadius > (90 - center.lat)) {
+            lls.push([lls[0][0], center.lng + 180],
+                [90, center.lng + 180],
+                [90, center.lng - 180],
+                [lls[0][0], center.lng - 180]);
         }
 
-        if ( angularRadius > (90 + center.lat) ) {
-            lls.splice( (parts>>1)+1, 0,
-                [ lls[ (parts>>1) ][0], center.lng-180 ],
-                [ -90, center.lng-180 ],
-                [ -90, center.lng+180 ],
-                [ lls[ (parts>>1) ][0], center.lng+180 ] );
+        if (angularRadius > (90 + center.lat)) {
+            lls.splice((parts >> 1) + 1, 0,
+                [lls[(parts>>1)][0], center.lng-180 ],
+                [-90, center.lng-180],
+                [-90, center.lng+180],
+                [lls[(parts >> 1)][0], center.lng+180 ]);
         }
 
         return lls;
@@ -62,8 +62,8 @@ module.exports.area = function(layer) {
     return geojsonArea(gj.geometry);
 };
 
-},{"geojson-area":2,"spherical":4,"wgs84":6}],2:[function(_dereq_,module,exports){
-var wgs84 = _dereq_('wgs84');
+},{"geojson-area":2,"spherical":4,"wgs84":6}],2:[function(require,module,exports){
+var wgs84 = require('wgs84');
 
 module.exports = function(_) {
     if (_.type === 'Polygon') return polygonArea(_.coordinates);
@@ -124,13 +124,13 @@ function rad(_) {
     return _ * Math.PI / 180;
 }
 
-},{"wgs84":3}],3:[function(_dereq_,module,exports){
+},{"wgs84":3}],3:[function(require,module,exports){
 module.exports.RADIUS = 6378137;
 module.exports.FLATTENING = 1/298.257223563;
 module.exports.POLAR_RADIUS = 6356752.3142;
 
-},{}],4:[function(_dereq_,module,exports){
-var wgs84 = _dereq_('wgs84');
+},{}],4:[function(require,module,exports){
+var wgs84 = require('wgs84');
 
 module.exports.heading = function(from, to) {
     var y = Math.sin(Math.PI * (from[0] - to[0]) / 180) * Math.cos(Math.PI * to[1] / 180);
@@ -188,10 +188,11 @@ function deg(_) {
     return _ * (180 / Math.PI);
 }
 
-},{"wgs84":5}],5:[function(_dereq_,module,exports){
-module.exports=_dereq_(3)
-},{}],6:[function(_dereq_,module,exports){
-module.exports=_dereq_(3)
+},{"wgs84":5}],5:[function(require,module,exports){
+module.exports=require(3)
+},{}],6:[function(require,module,exports){
+module.exports=require(3)
 },{}]},{},[1])
 (1)
 });
+;
