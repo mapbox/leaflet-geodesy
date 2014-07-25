@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "watchify site.js -o bundle.js",
+    "build": "watchify site.js -o bundle.js & serve",
     "make": "browserify index.js -s LGeo -o leaflet-geodesy.js"
   },
   "keywords": [
@@ -18,10 +18,11 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "geojson-area": "0.0.1",
-    "spherical": "0.0.1"
+    "spherical": "0.1.0"
   },
   "devDependencies": {
     "watchify": "~0.4.1",
-    "browserify": "~3.1.3"
+    "browserify": "~3.1.3",
+    "serve": "~1.4.0"
   }
 }

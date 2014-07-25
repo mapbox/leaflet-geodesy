@@ -128,7 +128,7 @@ module.exports.distance = function(from, to) {
     return 2 * wgs84.RADIUS * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 };
 
-module.exports.radial = function(from, tc_deg, d_m) {
+module.exports.radial = function(from, tc_deg, d_m, wrap) {
     var tc = rad(tc_deg);
     var d = d_m / wgs84.RADIUS;
 
@@ -150,8 +150,13 @@ module.exports.radial = function(from, tc_deg, d_m) {
         Math.sin(lat1) *
         Math.sin(lat));
 
-    var lon = (lon1 - dlon + Math.PI) %
-        (2 * Math.PI) - Math.PI;
+    var lon;
+    if (wrap) {
+        lon = (lon1 - dlon + Math.PI) %
+            (2 * Math.PI) - Math.PI;
+    } else {
+        lon = (lon1 - dlon + Math.PI) - Math.PI;
+    }
 
     return [deg(lon), deg(lat)];
 };
