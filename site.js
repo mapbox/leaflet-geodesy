@@ -1,6 +1,6 @@
 var desy = require('./');
 
-var map = L.mapbox.map('map', 'examples.map-i86knfo3')
+var map = L.mapbox.map('map', 'examples.map-i875mjb7')
   .setView([0, 0], 2);
 
 var planarCircle = L.circle([0, 0], 2000000, {
