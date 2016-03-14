@@ -1,0 +1,19 @@
+{
+  "name": "leaflet-geodesy",
+  "description": "geodesy functionality for leaflet",
+  "homepage": "https://github.com/mapbox/leaflet-geodesy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mapbox/leaflet-geodesy"
+  },
+  "author": "Tom MacWright",
+  "version": "0.2.1",
+  "main": "leaflet-geodesy.js",
+  "license": "BSD-2-Clause",
+  "keywords": [
+    "leaflet",
+    "geodesy",
+    "sphere",
+    "spherical"
+  ]
+}
