@@ -53,6 +53,10 @@ module.exports.circle = function(center, radius, opt) {
         poly.setLatLngs(generate(center));
         return poly;
     };
+    
+    poly.getCenter = function(_) {
+        return center;
+    };
 
     return poly;
 };
